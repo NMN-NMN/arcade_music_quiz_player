@@ -3593,8 +3593,10 @@
   },
   {
     "title": "Pangaea",
-    "youtubeIds": [],
-    "hasVideo": false
+    "youtubeIds": [
+      "JkNOf1G-pOA"
+    ],
+    "hasVideo": true
   },
   {
     "title": "ZEUS",
@@ -6654,9 +6656,13 @@
     "hasVideo": true
   },
   {
-    "title": "#SUP3RORBITAL",
-    "youtubeIds": [],
-    "hasVideo": false
+    "title": "＃SUP3RORBITAL",
+    "youtubeIds": [
+      "2AmATi4G54A",
+      "zl2hfa-b0JY",
+      "8bZNT36TqdU"
+    ],
+    "hasVideo": true
   },
   {
     "title": "WE'RE BACK!!",
