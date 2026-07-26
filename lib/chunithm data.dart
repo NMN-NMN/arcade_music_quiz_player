@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 Map<String, Chunithm> chunithm = Map();
 List<Chunithm> filteredChunithm = List.empty(growable: true);
+List<String> chunithm_title = List.empty(growable: true);
 List<String> chunithm_artist = List.empty(growable: true);
 List<Chunithm> playerChunithm = List.empty(growable: true);
 
@@ -44,7 +45,8 @@ final levels = [
 ];
 
 //  Dropdown Selected
-List<String> selectedItems = ["전체"];
+List<String> selectedArtists = ["전체"];
+String selectedTitle = "";
 
 Future<void> init_Chunithm() async
 {
@@ -60,6 +62,8 @@ Future<void> init_Chunithm() async
       for (final item in chunithm_video_list)
         item["title"] as String: (item["hasVideo"] as bool) == true ? (item["youtubeIds"] as List)[0] : ""
     };
+
+    chunithm_title = chunithm_video_map.keys.toList();
 
     final Map<String, dynamic> chunithm_data_list = Map<String, dynamic>.from(jsonDecode(chunithm_sheets_json));
 
@@ -107,7 +111,7 @@ Future<void> filteringChunithm() async
 
   for (final data in chunithm.values)
   {
-    if (checkedCategories[data.category] == true && (selectedItems.contains("전체") || selectedItems.contains(data.artist)))
+    if (checkedCategories[data.category] == true && (selectedArtists.contains("전체") || selectedArtists.contains(data.artist)))
     {
       for (final sheet in data.sheets)
       {

@@ -86,7 +86,7 @@ class VideoPlayerState extends State<VideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: Colors.blueGrey.shade600,
+      color: Colors.black.withAlpha(180),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

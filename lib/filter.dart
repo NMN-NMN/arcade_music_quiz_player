@@ -296,7 +296,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                       ]
                     ),
                     child: DropdownSearch<String>.multiSelection(
-                      selectedItems: selectedItems,
+                      selectedItems: selectedArtists,
                       items: (filter, loadProps) {
                         return chunithm_artist
                           .where(
@@ -306,8 +306,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                           ).toList();
                       },
                       onSelected: (value) {
-                        selectedItems.clear();
-                        selectedItems = value;
+                        selectedArtists.clear();
+                        selectedArtists = value;
                       },
                       popupProps: MultiSelectionPopupProps.menu(
                         showSearchBox: true,

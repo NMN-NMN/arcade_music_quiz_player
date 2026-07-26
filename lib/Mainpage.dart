@@ -6,8 +6,6 @@ import 'package:better_quiz_game/video%20player.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-bool isGuess = true;
-
 class Mainpage extends StatefulWidget {
   const Mainpage({super.key});
 
@@ -62,6 +60,8 @@ class _MainpageState extends State<Mainpage> with SingleTickerProviderStateMixin
 
   //  Selected Button Index
   int selectedIndex = 0;
+
+  bool isGuess = true;
 
   @override
   void initState() {
