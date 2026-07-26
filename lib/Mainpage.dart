@@ -132,7 +132,10 @@ class _MainpageState extends State<Mainpage> with SingleTickerProviderStateMixin
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
-          child: Text("Chunithm 맞추기 / 재생기", style: titleFont),
+          child: Image.asset(
+            "assets/images/chunithm logo.png",
+            height: 100,
+          )
         ),
         Expanded(
           child: Stack(
