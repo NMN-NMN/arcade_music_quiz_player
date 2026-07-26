@@ -152,18 +152,20 @@ class _MainpageState extends State<Mainpage> with SingleTickerProviderStateMixin
                           FilterWidget(shadowColorAnimation: shadowColorAnimation),
                           ElevatedButton(
                             onPressed: () async {
-                              await filteringChunithm();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
+                                    filteringChunithm();
+                                    final count = int.tryParse(textfieldController.text);
+
                                     if (!isGuess)
                                     {
                                       return VideoPlayer();
                                     }
                                     else
                                     {
-                                      return GuessPage();
+                                      return GuessPage(guessCount: count ?? filteredCount.value);
                                     }
                                   },
                                 )

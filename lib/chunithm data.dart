@@ -24,6 +24,12 @@ late final Map<String, bool> checkedLevels = {
 //  RangeSlider
 RangeValues rangeValues = const RangeValues(1, 16);
 
+//  TextField
+TextEditingController textfieldController = TextEditingController();
+
+//  ValueNotifier
+ValueNotifier<int> filteredCount = ValueNotifier(0);
+
 //  Categories
 final categories = [
     "POPS & ANIME",
@@ -127,6 +133,8 @@ Future<void> filteringChunithm() async
   playerChunithm = List.from(filteredChunithm);
   playerChunithm.shuffle();
 
+  filteredCount.value = filteredChunithm.length;
+  
   print("영상 개수: ${filteredChunithm.length}");
 }
 

@@ -1,6 +1,7 @@
 import 'package:better_quiz_game/chunithm%20data.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -35,6 +36,12 @@ class _FilterWidgetState extends State<FilterWidget> {
     color: Colors.black,
     fontSize: 18
   );
+
+  @override
+  void initState() {
+    super.initState();
+    filteringChunithm();
+  }
 
   Widget getLevel(double value, bool isStart)
   {
@@ -123,6 +130,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                                   setState(() {
                                     checkedCategories[category] = value ?? false;
                                   });
+                                  
+                                  filteringChunithm();
                                 },
                                 fillColor: WidgetStateProperty.resolveWith((states) {
                                   if (states.contains(WidgetState.selected))
@@ -183,6 +192,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                                         setState(() {
                                           checkedLevels[level] = value ?? false;
                                         });
+
+                                        filteringChunithm();
                                       },
                                       fillColor: WidgetStateProperty.resolveWith((states) {
                                         if (states.contains(WidgetState.selected))
@@ -266,6 +277,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                                       (value.end * 10).round() / 10
                                     );
                                   });
+
+                                  filteringChunithm();
                                 },
                               ),
                             ),
@@ -308,6 +321,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                       onSelected: (value) {
                         selectedArtists.clear();
                         selectedArtists = value;
+
+                        filteringChunithm();
                       },
                       popupProps: MultiSelectionPopupProps.menu(
                         showSearchBox: true,
@@ -376,6 +391,95 @@ class _FilterWidgetState extends State<FilterWidget> {
                         )
                       ),
                     ),
+                  ),
+                  SizedBox(height: 15,),
+                  Row(
+                    spacing: 30,
+                    mainAxisSize: .min,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            child: Text(
+                              "맞출 문제 개수",
+                              style: subTitleFont
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: widget.shadowColorAnimation.value!.withAlpha(150),
+                                    blurRadius: 8,
+                                    blurStyle: BlurStyle.outer
+                                  )
+                                ]
+                              ),
+                              child: TextField(
+                                controller: textfieldController,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9]*'),
+                                  ),
+                                ],
+                                decoration: InputDecoration(
+                                  hintText: "ex) 10, 20, 30...",
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent
+                                    ),
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent
+                                    ),
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent
+                                    ),
+                                    borderRadius: BorderRadius.circular(10)
+                                  )
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            child: Text(
+                              "필터링된 노래 갯수",
+                              style: subTitleFont
+                            ),
+                          ),
+                          ValueListenableBuilder(
+                            valueListenable: filteredCount,
+                            builder: (context, value, child) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5),
+                                child: Text(
+                                  value.toString(),
+                                  style: subTitleFont
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      )
+                    ],
                   )
                 ],
               ),

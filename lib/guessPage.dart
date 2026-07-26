@@ -1,10 +1,13 @@
 import 'package:better_quiz_game/chunithm%20data.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class GuessPage extends StatefulWidget {
-  const GuessPage({super.key});
+  const GuessPage({super.key, required this.guessCount});
+
+  final guessCount;
 
   @override
   State<GuessPage> createState() => _GuessPageState();
@@ -36,6 +39,10 @@ class _GuessPageState extends State<GuessPage> {
 
   //  Score
   int score = 0;
+  int playedCount = 1;
+
+  //  url
+  String url = "https://wikiwiki.jp/chunithmwiki/";
 
   @override
   void initState() {
@@ -97,14 +104,27 @@ class _GuessPageState extends State<GuessPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: SizedBox(
-                    height: 60,
+                    height: 50,
                     child: Center(
-                      child: SelectableText(
-                        getCurrentTitle(),
-                        style: const TextStyle(
-                          fontSize: 36,
-                          color: Colors.white,
-                          decoration: TextDecoration.none
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () async {
+                            final uri = Uri.parse(url + getCurrentTitle());
+                        
+                            await launchUrl(
+                              uri,
+                              mode: LaunchMode.platformDefault
+                            );
+                          },
+                          child: Text(
+                            getCurrentTitle(),
+                            style: const TextStyle(
+                              fontSize: 36,
+                              color: Colors.white,
+                              decoration: TextDecoration.none
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -113,10 +133,11 @@ class _GuessPageState extends State<GuessPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   child: SizedBox(
-                    height: 30,
+                    height: 45,
                     child: Center(
                       child: SelectableText(
                         getCurrentArtist(),
+                        scrollPhysics: NeverScrollableScrollPhysics(),
                         style: const TextStyle(
                           fontSize: 24,
                           color: Colors.white,
@@ -143,7 +164,7 @@ class _GuessPageState extends State<GuessPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                   child: SizedBox(
                     height: 25,
                     child: Row(
@@ -269,7 +290,7 @@ class _GuessPageState extends State<GuessPage> {
                 ),
               ),
             ),
-            Padding(
+            if (!showAnswer) Padding(
               padding: const EdgeInsets.fromLTRB(8, 16, 8, 8),
               child: Row(
                 spacing: 10,
@@ -327,9 +348,20 @@ class _GuessPageState extends State<GuessPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
               child: Text(
                 "현재 점수: $score",
+                style: const TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  decoration: TextDecoration.none
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                "진행도: $playedCount / ${widget.guessCount}",
                 style: const TextStyle(
                   fontSize: 30,
                   color: Colors.white,
@@ -360,28 +392,26 @@ class _GuessPageState extends State<GuessPage> {
                     ),
                   )
                 ),
-              ) : Padding(
-                padding: const EdgeInsets.all(20),
-                child: IconButton(
-                  onPressed: chunithmIndex < playerChunithm.length - 1 ? () {
-                    setVideo();
-                    setState(() {
-                      showAnswer = false;
-                    });
-                  } : null,
-                  style: buttonStyle,
-                  icon: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "다음으로",
-                        style: TextStyle(
-                          fontSize: 30
-                        ),
+              ) : IconButton(
+                onPressed: chunithmIndex < playerChunithm.length - 1 ? () {
+                  setVideo();
+                  setState(() {
+                    showAnswer = false;
+                    playedCount += 1;
+                  });
+                } : null,
+                style: buttonStyle,
+                icon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      "다음으로",
+                      style: TextStyle(
+                        fontSize: 30
                       ),
-                    )
-                  ),
+                    ),
+                  )
                 ),
               ),
             )
