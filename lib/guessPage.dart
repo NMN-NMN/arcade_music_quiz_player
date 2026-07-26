@@ -107,7 +107,7 @@ class _GuessPageState extends State<GuessPage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: SizedBox(
-                        height: 50,
+                        height: 60,
                         child: Center(
                           child: MouseRegion(
                             cursor: SystemMouseCursors.click,
