@@ -150,48 +150,50 @@ class _MainpageState extends State<Mainpage> with SingleTickerProviderStateMixin
                   builder: (context, child) {
                     return ColoredBox(
                       color: colorAnimation.value!,
-                      child: Column(
-                        children: [
-                          FilterWidget(shadowColorAnimation: shadowColorAnimation),
-                          ElevatedButton(
-                            onPressed: () async {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    filteringChunithm();
-                                    final count = int.tryParse(textfieldController.text);
-
-                                    if (!isGuess)
-                                    {
-                                      return VideoPlayer();
-                                    }
-                                    else
-                                    {
-                                      return GuessPage(guessCount: count ?? filteredCount.value);
-                                    }
-                                  },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            FilterWidget(shadowColorAnimation: shadowColorAnimation),
+                            ElevatedButton(
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      filteringChunithm();
+                                      final count = int.tryParse(textfieldController.text);
+                        
+                                      if (!isGuess)
+                                      {
+                                        return VideoPlayer();
+                                      }
+                                      else
+                                      {
+                                        return GuessPage(guessCount: count ?? filteredCount.value);
+                                      }
+                                    },
+                                  )
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                shadowColor: colorAnimation.value!.withAlpha(150),
+                                overlayColor: colorAnimation.value!,
+                                elevation: 5,
+                                shape:RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusGeometry.circular(10)
                                 )
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shadowColor: colorAnimation.value!.withAlpha(150),
-                              overlayColor: colorAnimation.value!,
-                              elevation: 5,
-                              shape:RoundedRectangleBorder(
-                                borderRadius: BorderRadiusGeometry.circular(10)
-                              )
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "시작하기",
-                                style: buttonFont,
                               ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "시작하기",
+                                  style: buttonFont,
+                                ),
+                              )
                             )
-                          )
-                        ],
+                          ],
+                        ),
                       )
                     );
                   }
