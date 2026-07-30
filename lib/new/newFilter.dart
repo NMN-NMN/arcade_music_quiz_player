@@ -19,14 +19,23 @@ class _NewFilterState extends State<NewFilter> {
       builder: (context, responsive) {
         return Padding(
           padding: const EdgeInsets.only(top: 15),
-          child: Column(
-            spacing: 10,
-            children: [
-              NewCategoryFilter(),
-              NewLevel(),
-              NewArtist(),
-              NewQuiz()
-            ],
+          child: ScrollbarTheme(
+            data: ScrollbarThemeData(
+              thumbColor: WidgetStateProperty.resolveWith((state) {
+                return Colors.black;
+              })
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                spacing: 10,
+                children: [
+                  NewCategoryFilter(),
+                  NewLevel(),
+                  NewArtist(),
+                  NewQuiz()
+                ],
+              ),
+            ),
           ),
         );
       },

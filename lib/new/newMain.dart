@@ -26,10 +26,10 @@ class NewMainPageState extends State<NewMainPage> {
           children: [
             Center(
               child: Padding(
-                padding: EdgeInsets.all(responsive.radius(40, min: 30, max: 50)),
+                padding: EdgeInsets.all(responsive.isMobile ? 10 : 40),
                 child: Image.asset(
                   "assets/images/chunithm logo.png",
-                  height: responsive.height(100, min: 50, max: 200),
+                  height: responsive.isMobile ? 25 : 100,
                 ),
               ),
             ),

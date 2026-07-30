@@ -74,7 +74,7 @@ class _NewQuizState extends State<NewQuiz> {
             Column(
               children: [
                 Text(
-                  "필터링된 노래 갯수",
+                  "노래 갯수",
                   style: TextStyle(
                     fontSize: responsive.isMobile ? 18 : 26
                   ),
