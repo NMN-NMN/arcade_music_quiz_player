@@ -1,5 +1,6 @@
 import 'package:better_quiz_game/chunithm%20data.dart';
 import 'package:better_quiz_game/Mainpage.dart';
+import 'package:better_quiz_game/new/newMain.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -62,6 +63,7 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: const Color.fromARGB(221, 15, 12, 8),
         body: FutureBuilder(
           future: loadData(),
           builder: (context, snapshot) {
@@ -76,7 +78,7 @@ class _MainAppState extends State<MainApp> {
                 ),
               );
             }
-            return Mainpage();
+            return NewMainPage();
           }
         )
       ),

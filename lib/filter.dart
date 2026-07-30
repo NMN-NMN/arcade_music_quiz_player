@@ -72,13 +72,20 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 600;
+    
+    final contentWidth = isMobile
+      ? size.width * 0.95
+      : 800.0;
+    
     return Padding(
       padding: const EdgeInsets.all(50),
       child: AnimatedBuilder(
         animation: widget.shadowColorAnimation,
         builder: (context, child) {
           return Container(
-            width: 800,
+            width: contentWidth,
             decoration: BoxDecoration(
               color: const Color.fromARGB(220, 255, 255, 255),
               boxShadow: [
@@ -103,7 +110,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     ),
                   ),
                   Container(
-                    width: 720,
+                    width: contentWidth - 40,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(200, 255, 255, 255),
                       borderRadius: BorderRadius.circular(10),
@@ -161,7 +168,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     ),
                   ),
                   Container(
-                    width: 720,
+                    width: contentWidth - 80,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(200, 255, 255, 255),
                       borderRadius: BorderRadius.circular(10),
@@ -256,7 +263,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                             )
                           ),
                           SizedBox(
-                            width: 500,
+                            width: contentWidth - 300,
                             child: SliderTheme(
                               data: SliderTheme.of(context).copyWith(
                                 showValueIndicator: ShowValueIndicator.never,
@@ -296,7 +303,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                     ),
                   ),
                   Container(
-                    width: 500,
+                    width: contentWidth - 300,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(200, 255, 255, 255),
                       borderRadius: BorderRadius.circular(10),

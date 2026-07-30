@@ -117,7 +117,7 @@ Future<void> filteringChunithm() async
 
   for (final data in chunithm.values)
   {
-    if (checkedCategories[data.category] == true && (selectedArtists.contains("전체") || selectedArtists.contains(data.artist)))
+    if (data.youtubeId != "" && checkedCategories[data.category] == true && (selectedArtists.contains("전체") || selectedArtists.contains(data.artist)))
     {
       for (final sheet in data.sheets)
       {
@@ -174,10 +174,26 @@ String getNextVideo()
   {
     return "none";
   }
-  
-  chunithmIndex += 1;
 
-  return playerChunithm[chunithmIndex].youtubeId;
+  chunithmIndex += 1;
+  String id = playerChunithm[chunithmIndex].youtubeId;
+
+  while (true)
+  {
+    if (id == "")
+    {
+      print("ID 없는 영상: " + playerChunithm[chunithmIndex].title);
+      playerChunithm.removeAt(chunithmIndex);
+      id = playerChunithm[chunithmIndex].youtubeId;
+    }
+    else
+    {
+      filteredCount.value = playerChunithm.length;
+      break;
+    }
+  }
+
+  return id;
 }
 
 String getPreviousVideo()
@@ -188,6 +204,22 @@ String getPreviousVideo()
   }
   
   chunithmIndex -= 1;
+  String id = playerChunithm[chunithmIndex].youtubeId;
 
-  return playerChunithm[chunithmIndex].youtubeId;
+  while (true)
+  {
+    if (id == "")
+    {
+      print("ID 없는 영상: " + playerChunithm[chunithmIndex].title);
+      playerChunithm.removeAt(chunithmIndex);
+      id = playerChunithm[chunithmIndex].youtubeId;
+    }
+    else
+    {
+      filteredCount.value = playerChunithm.length;
+      break;
+    }
+  }
+
+  return id;
 }
